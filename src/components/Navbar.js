@@ -5,7 +5,11 @@ export class Navbar extends Component {
   render() {
     return (
       <div>
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark position-fixed" style={{
+          top: '0',
+          zIndex: '9',
+          width: '100%'
+        }}>
           <div className="container-fluid">
             <a className="navbar-brand" link="/">
               NewsMonkey

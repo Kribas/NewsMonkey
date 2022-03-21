@@ -43,15 +43,19 @@ export default class News extends Component {
     this.setState({
       loading: true,
     });
+    this.props.setProgress(10)
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=da6fee47702e40b3870c86883c80a824&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     let data = await fetch(url);
+    this.props.setProgress(30)
     let parsedData = await data.json();
-    console.log(parsedData);
+    this.props.setProgress(70)
     this.setState({
       articles: parsedData.articles,
       loading: false,
       totalResult: parsedData.totalResults,
     });
+
+    this.props.setProgress(100)
   }
 
   fetchMoreData = async () => {
@@ -70,24 +74,12 @@ export default class News extends Component {
     });
   }
 
-  handlePrev = async () => {
-    this.updateNews();
-    this.setState({
-      page: this.state.page - 1,
-    });
-  };
-
-  handleNext = async () => {
-    this.updateNews();
-    this.setState({
-      page: this.state.page + 1,
-    });
-  };
+  
 
   render() {
     return (
       <div>
-        <h1 className="my-3 text-center" style={{ margin: "50px 0px" }}>
+        <h1 className="my-5 text-center" style={{ margin: "50px 0px" }}>
           NewsMonkey {this.capitalizeFirstLetter(this.props.category)} headlines
         </h1>
         {this.state.loading && <Spinner />}
